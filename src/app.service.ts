@@ -10,10 +10,9 @@ export class PatientsService {
 
     constructor() {
         this.client = ClientProxyFactory.create({
-            transport: Transport.TCP,
+            transport: Transport.REDIS,
             options: {
-                host: '127.0.0.1',
-                port: 3002
+                url: 'redis://localhost:6379'
             }
         });
     }
@@ -48,10 +47,9 @@ export class DoctorsService {
 
     constructor() {
         this.client = ClientProxyFactory.create({
-            transport: Transport.TCP,
+            transport: Transport.REDIS,
             options: {
-                host: '127.0.0.1',
-                port: 3001
+                url: 'redis://localhost:6379'
             }
         });
     }
