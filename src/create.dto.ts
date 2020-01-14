@@ -6,6 +6,7 @@ export class CreateDoctorDTO {
     readonly verified: boolean;
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export class CreatePatientDTO {
     readonly id: number;
     readonly name: string;
