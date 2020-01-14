@@ -27,7 +27,6 @@ export class DoctorsService {
   }
 
   async getDoctorByUID(uid: string): Promise<any> {
-    console.log('uid', uid)
     return this.client.send('getDoctorByUID', uid);
   }
 

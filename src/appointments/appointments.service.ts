@@ -18,7 +18,6 @@ export class AppointmentsService {
   }
 
   async saveAppointment(appointment: AppointmentDto): Promise<any> {
-    console.log('Fetching save appointment',appointment)
     this.logger.log('Fetching save appointment');
     return this.client.send('saveAppointment', appointment);
   }
