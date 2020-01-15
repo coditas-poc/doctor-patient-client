@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards, Body, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -12,5 +13,12 @@ export class UsersController {
   @Get('getPatients')
   async getPatients() {
     return this.usersService.getPatients();
+  }
+
+  @Get('userDetails')
+  @UseGuards(AuthGuard('jwt'))
+  async getUserDetails(@Body() res: string) {
+      const data = this.usersService.getUserDetails(res);
+      return data;
   }
 }

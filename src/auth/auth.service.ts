@@ -29,10 +29,11 @@ export class AuthService {
     });
   }
 
-  async login(user: any): Promise<string> {
-    this.logger.log('Fectching login');
-    return this.client
-      .send('login', user)
+  async login(payload): Promise<string> {
+      console.log('>> payload', payload);
+      this.logger.log('Fectching login');
+      return this.client
+      .send('login', payload)
       .toPromise()
       .catch(error => {
         throw new HttpException(error, error.status);
