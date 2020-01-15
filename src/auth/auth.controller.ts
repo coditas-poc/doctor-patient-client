@@ -18,4 +18,10 @@ export class AuthController {
       console.log('>> request-server', request);
       return this.authService.login(request);
   }
+
+  @Post('signup')
+  async signup(@Body() res: any): Promise<any> {
+    const signUp = this.authService.signUp(res);
+    return signUp;
+  }
 }

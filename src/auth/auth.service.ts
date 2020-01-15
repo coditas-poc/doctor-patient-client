@@ -58,4 +58,13 @@ export class AuthService {
         throw new HttpException(error, error.status);
       });
   }
+
+  async signUp(res) {
+    return this.client
+      .send('signup', res)
+      .toPromise()
+      .catch(error => {
+        throw new HttpException(error, error.status);
+      });
+  }
 }
