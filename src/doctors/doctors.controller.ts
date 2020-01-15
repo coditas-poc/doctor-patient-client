@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, Body, Param } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { DoctorDTO } from './doctors.dto';
 
@@ -13,7 +13,7 @@ export class DoctorsController {
     return this.doctorService.getDoctors();
   }
 
-  @Get('register')
+  @Post('register')
   getPayers(@Body() doctor: DoctorDTO) {
     return this.doctorService.saveDoctor(doctor);
   }
