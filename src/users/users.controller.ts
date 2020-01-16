@@ -15,10 +15,10 @@ export class UsersController {
     return this.usersService.getPatients();
   }
 
-  @Get('userDetails')
+  @Get('userDetails/:id')
   @UseGuards(AuthGuard('jwt'))
-  async getUserDetails(@Body() res: string) {
-      const data = this.usersService.getUserDetails(res);
+  async getUserDetails(@Param() id: string) {
+      const data = this.usersService.getUserDetails(id);
       return data;
   }
 }
