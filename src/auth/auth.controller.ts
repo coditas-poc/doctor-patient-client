@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, Get } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
@@ -30,5 +30,14 @@ export class AuthController {
       status: Constants.STATUS.SUCCESS,
       access_token: this.jwtService.sign({email: authUser.email}),
     };
+  }
+
+  @Get('verify/email/:email')
+  async verifyEmail(@Param() email): Promise<any> {
+    return await this.authService.verifyEmail(email);
+  }
+  @Get('verify/memberId/:memberId')
+  async verifyMemberId(@Param() memberId): Promise<any> {
+    return await this.authService.verifyMemberId(memberId);
   }
 }

@@ -39,11 +39,11 @@ export class AuthService {
   }
 
   async signUp(payload) {
-      return this.client
+    return this.client
       .send('signup', payload)
       .toPromise()
       .catch(error => {
-          throw new HttpException(error.message, error.status);
+        throw new HttpException(error.message, error.status);
       });
   }
 
@@ -60,5 +60,22 @@ export class AuthService {
     } catch (err) {
       throw new InternalServerErrorException('validateOAuthLogin', err.message);
     }
+  }
+
+  async verifyEmail(payload) {
+    return this.client
+      .send('verifyEmail', payload)
+      .toPromise()
+      .catch(error => {
+        throw new HttpException(error.message, error.status);
+      });
+  }
+  async verifyMemberId(payload) {
+    return this.client
+      .send('verifyMemberId', payload)
+      .toPromise()
+      .catch(error => {
+        throw new HttpException(error.message, error.status);
+      });
   }
 }
