@@ -21,10 +21,10 @@ export class UsersService {
 
     }
 
-    async getUserDetails(email) {
+    async getUserDetails(id: string) {
         this.logger.log('Fectching User Details');
         return this.client
-            .send('getUserDetails', email)
+            .send('getUserDetails', id)
             .toPromise()
             .catch(error => {
                 throw new HttpException(error, error.status);
