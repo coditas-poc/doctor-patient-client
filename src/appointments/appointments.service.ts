@@ -1,25 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { ClientProxyFactory, Transport, ClientProxy } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
+import { client } from 'lib/client';
 import { AppointmentDto } from './appointments.dto';
 
 @Injectable()
 export class AppointmentsService {
   private logger = new Logger('AppointmentsService');
-  private client: ClientProxy;
 
-  constructor() {
-    this.client = ClientProxyFactory.create({
-      transport: Transport.REDIS,
-      options: {
-        url: 'redis://localhost:6379'
-      }
-    });
-  }
+  constructor() {}
 
   async saveAppointment(appointment: AppointmentDto): Promise<any> {
     this.logger.log('Fetching save appointment');
-    return this.client.send('saveAppointment', appointment);
+    return client.send('saveAppointment', appointment);
   }
 
 }
