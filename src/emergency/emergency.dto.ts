@@ -1,12 +1,16 @@
-export class EmergencyDTO {
-    readonly firstName: string;
-    readonly middleName: string;
-    readonly lastName: string;
-    readonly mobileNumber: string;
-    readonly email: string;
-    readonly npi: string;
-    readonly imageURL: string;
-    readonly gender: string;
-    readonly specialties: Array<{}>;
-    readonly phone: string;
+export class EmergencyMedicalDTO {
+    readonly userID: number;
+    readonly allergiesType: string;
+    readonly allergiesName: string;
+    readonly medicianPower: string;
+    readonly medicianName: string;
+    readonly medicianTime: string;
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class EmergencyContactDTO {
+    readonly userID: number;
+    readonly mobileNumber: number;
+    readonly name: string;
+    readonly relation: string;
 }

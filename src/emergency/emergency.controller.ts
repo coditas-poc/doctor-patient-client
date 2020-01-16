@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Req, Res } from '@nestjs/common';
 import { EmergencyService } from './emergency.service';
-import { EmergencyDTO } from './emergency.dto';
+import { EmergencyMedicalDTO, EmergencyContactDTO } from './emergency.dto';
 
 @Controller('emergency')
 export class EmergencyController {
@@ -12,8 +12,8 @@ export class EmergencyController {
     }
 
     @Post('medical-details')
-    addMedicalDetails(@Body() emergency: EmergencyDTO) {
-        return this.emergencyService.addMedicalDetails(emergency);
+    addMedicalDetails(@Body() emergencyMedical: EmergencyMedicalDTO) {
+        return this.emergencyService.addMedicalDetails(emergencyMedical);
     }
     @Get('contact-details')
     getContactDetails() {
@@ -21,7 +21,7 @@ export class EmergencyController {
     }
 
     @Post('contact-details')
-    addContactDetails(@Body() emergency: EmergencyDTO) {
-        return this.emergencyService.addContactDetails(emergency);
+    addContactDetails(@Body() emergencyContact: EmergencyContactDTO) {
+        return this.emergencyService.addContactDetails(emergencyContact);
     }
 }

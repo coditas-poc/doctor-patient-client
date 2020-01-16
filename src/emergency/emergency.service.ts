@@ -3,7 +3,7 @@ import { client } from 'lib/client';
 
 @Injectable()
 export class EmergencyService {
-    private logger = new Logger('DoctorsService');
+    private logger = new Logger('EmergencyService');
 
     constructor() { }
 
