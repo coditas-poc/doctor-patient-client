@@ -13,6 +13,11 @@ export class DoctorsController {
     return this.doctorService.getDoctors();
   }
 
+  @Get('specialities')
+  getDoctorsSpecialities(): Promise<any> {
+    return this.doctorService.getDoctorsSpecialities();
+  }
+
   @Get('register')
   getPayers(@Body() doctor: DoctorDTO) {
     return this.doctorService.saveDoctor(doctor);
@@ -26,13 +31,6 @@ export class DoctorsController {
   @Get('/npi/:npi')
   getDoctorByNPI(@Param('npi') npi: string): Promise<any> {
     return this.doctorService.getDoctorByNPI(npi);
-  }
-
-  // Todo : Adding route for specilities
-  // Bug : UID being called instead of specialities
-  @Get('specialities')
-  getDoctorsSpecialities(): Promise<any> {
-    return this.doctorService.getDoctorsSpecialities();
   }
   
 }
