@@ -24,11 +24,11 @@ export class AuthController {
 
   @Post('signup')
   async signup(@Body() data): Promise<any> {
-    const authUser = this.authService.signUp(data);
-    return {
+      const authUser = await this.authService.signUp(data);
+      return {
       statusCode: Constants.STATUSCODE.SUCCESS,
       status: Constants.STATUS.SUCCESS,
-      access_token: this.jwtService.sign(authUser),
+      access_token: this.jwtService.sign({email: authUser.email}),
     };
   }
 }
