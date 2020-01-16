@@ -30,41 +30,35 @@ export class AuthService {
   }
 
   async login(payload): Promise<string> {
-      console.log('>> payload', payload);
-      this.logger.log('Fectching login');
-      return this.client
+    return this.client
       .send('login', payload)
       .toPromise()
       .catch(error => {
-        throw new HttpException(error, error.status);
-      });
-  }
-  async validateUser(email: string, pass: string): Promise<any> {
-    const payload = {email, pass};
-    return this.client
-    .send('validateUser', payload)
-    .toPromise()
-    .catch(error => {
-      throw new HttpException(error, error.status);
-    });
-  }
-
-  async validateOAuthLogin( thirdPartyId: string, provider: Provider): Promise<string> {
-    const payload = { thirdPartyId, provider };
-    return this.client
-      .send('validateOAuthLogin', payload)
-      .toPromise()
-      .catch(error => {
-        throw new HttpException(error, error.status);
+        throw new HttpException(error.response, error.status);
       });
   }
 
-  async signUp(res) {
+  async signUp(payload) {
     return this.client
-      .send('signup', res)
+      .send('signup', payload)
       .toPromise()
       .catch(error => {
-        throw new HttpException(error, error.status);
+        throw new HttpException(error.response, error.status);
       });
+  }
+
+  async validateOAuthLogin(
+    thirdPartyId: string,
+    provider: Provider,
+  ): Promise<string> {
+    try {
+      const payload = { thirdPartyId, provider };
+      const jwt: string = sign(payload, process.env.JWT_SECRETE_TOKEN, {
+        expiresIn: 3600,
+      });
+      return jwt;
+    } catch (err) {
+      throw new InternalServerErrorException('validateOAuthLogin', err.message);
+    }
   }
 }
