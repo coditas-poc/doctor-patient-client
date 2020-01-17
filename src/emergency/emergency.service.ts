@@ -7,21 +7,24 @@ export class EmergencyService {
 
     constructor() { }
 
-    async getMedicalDetails(): Promise<any> {
+    async getMedicalDetails(user): Promise<any> {
         this.logger.log('Fetching medical details');
-        return client.send('getMedicalDetails', '');
+        return client.send('getMedicalDetails', user);
     }
-    async addMedicalDetails(emergency): Promise<any> {
+
+    async addMedicalDetails(emergency,user): Promise<any> {
         this.logger.log('Adding medical details');
-        return client.send('addMedicalDetails', emergency);
+        return client.send('addMedicalDetails', { emergency: emergency, user: user });
     }
-    async getContactDetails(): Promise<any> {
+
+    async getContactDetails(user): Promise<any> {
         this.logger.log('Fetching contact details');
-        return client.send('getContactDetails', '');
+        return client.send('getContactDetails', user);
     }
-    async addContactDetails(emergency): Promise<any> {
+
+    async addContactDetails(contact,user): Promise<any> {
         this.logger.log('Adding contact details');
-        return client.send('addContactDetails', emergency);
+        return client.send('addContactDetails', { contact: contact, user: user});
     }
 }
 
