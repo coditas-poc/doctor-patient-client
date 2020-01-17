@@ -1,40 +1,39 @@
-import { Controller, Get, Post, Body, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Res, UseGuards, Param } from '@nestjs/common';
 import { EmergencyService } from './emergency.service';
 import { EmergencyMedicalDTO, EmergencyContactDTO } from './emergency.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/auth/get-user.decorator';
 
 @Controller('emergency')
 @UseGuards(AuthGuard('jwt'))
 export class EmergencyController {
     constructor(private readonly emergencyService: EmergencyService) { }
 
-    @Get('medical-details')
+    @Get('medical-details/:id')
     getMedicalDetails(
-        @GetUser() user
+        @Param() id: string,
     ) {
-        return this.emergencyService.getMedicalDetails(user);
+        return this.emergencyService.getMedicalDetails(id);
     }
 
-    @Post('medical-details')
+    @Post('medical-details/:id')
     addMedicalDetails(
         @Body() emergencyMedical: EmergencyMedicalDTO,
-        @GetUser() user
+        @Param() id: string,
     ) {
-        return this.emergencyService.addMedicalDetails(emergencyMedical,user);
+        return this.emergencyService.addMedicalDetails(emergencyMedical,id);
     }
-    @Get('contact-details')
+    @Get('contact-details/:id')
     getContactDetails(
-        @GetUser() user
+        @Param() id: string,
     ) {
-        return this.emergencyService.getContactDetails(user);
+        return this.emergencyService.getContactDetails(id);
     }
 
-    @Post('contact-details')
+    @Post('contact-details/:id')
     addContactDetails(
         @Body() emergencyContact: EmergencyContactDTO,
-        @GetUser() user    
+        @Param() id: string,
     ) {
-        return this.emergencyService.addContactDetails(emergencyContact,user);
+        return this.emergencyService.addContactDetails(emergencyContact,id);
     }
 }
