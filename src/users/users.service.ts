@@ -22,6 +22,7 @@ export class UsersService {
                 throw new HttpException(error, error.status);
             });
     }
+    
     async verifyUserOtp(details) {
         this.logger.log('Fectching patient Details');
         return client.send('verifyOtp', details).toPromise().catch(error => {

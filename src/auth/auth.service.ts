@@ -7,7 +7,7 @@ import {
 import { UsersService } from '../users/users.service';
 // import { Users } from 'src/users/users.entity';
 import bcrypt = require('bcrypt');
-import { sign } from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';;
 import { client } from 'lib/client';
 // const saltRounds = 10;
 export enum Provider {
@@ -17,7 +17,6 @@ export enum Provider {
 @Injectable()
 export class AuthService {
   private logger = new Logger('AuthService');
-
   constructor(
     public readonly usersService: UsersService
   ) { }
@@ -69,7 +68,7 @@ export class AuthService {
       .send('validateUser', payload)
       .toPromise()
       .catch(error => {
-        throw new HttpException(error, error.status);
+        throw new HttpException(error.message, error.status);
       });
   }
 
