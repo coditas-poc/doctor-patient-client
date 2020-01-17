@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, Body, Param } from '@nestjs/common';
+import { Controller, Get, Req, Res, Body, Param, Post, Put } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { DoctorDTO } from './doctors.dto';
 
@@ -6,7 +6,7 @@ import { DoctorDTO } from './doctors.dto';
 
 @Controller('doctors')
 export class DoctorsController {
-  constructor(private readonly doctorService: DoctorsService) {}
+  constructor(private readonly doctorService: DoctorsService) { }
 
   @Get()
   getDoctors(): Promise<any> {
@@ -32,5 +32,16 @@ export class DoctorsController {
   getDoctorByNPI(@Param('npi') npi: string): Promise<any> {
     return this.doctorService.getDoctorByNPI(npi);
   }
-  
+  @Post('/')
+  saveDoctorDetails(@Body() doctor: DoctorDTO) {
+    return this.doctorService.saveDoctor(doctor);
+  }
+  @Post('/register')
+  registerDoctor(@Body() doctor) {
+    return this.doctorService.registerDoctor(doctor)
+  }
+  @Post('/login')
+  updateDoctor(@Body() doctor) {
+    return this.doctorService.updateDoctor(doctor)
+  }
 }
