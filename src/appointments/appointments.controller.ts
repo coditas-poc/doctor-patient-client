@@ -1,7 +1,9 @@
-import { Controller, Body, Req, Res, Post } from '@nestjs/common';
+import { Controller, Body, Req, Res, Post, UseGuards } from '@nestjs/common';
 import { AppointmentsService } from './appointments.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('appointments')
+@UseGuards(AuthGuard('jwt'))
 export class AppointmentsController {
   constructor(
     private readonly appiontmentsService: AppointmentsService,
