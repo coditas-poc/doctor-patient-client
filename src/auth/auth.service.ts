@@ -30,27 +30,23 @@ export class AuthService {
   }
 
   async login(payload): Promise<string> {
-    return this.client
-      .send('login', payload)
-      .toPromise()
-      .catch(error => {
-        throw new HttpException(error.response, error.status);
-      });
+    return this.client.send('login', payload).toPromise().catch(error => {
+      throw new HttpException(error.response, error.status);
+    });
   }
 
   async signUp(payload) {
-      return this.client
-      .send('signup', payload)
-      .toPromise()
-      .catch(error => {
-          throw new HttpException(error.message, error.status);
-      });
+    return this.client.send('signup', payload).toPromise().catch(error => {
+      throw new HttpException(error.message, error.status);
+    });
+  }
+  async doctorSignup(payload) {
+    return this.client.send('docSignup', payload).toPromise().catch(error => {
+      throw new HttpException(error.message, error.status);
+    });
   }
 
-  async validateOAuthLogin(
-    thirdPartyId: string,
-    provider: Provider,
-  ): Promise<string> {
+  async validateOAuthLogin(thirdPartyId: string, provider: Provider, ): Promise<string> {
     try {
       const payload = { thirdPartyId, provider };
       const jwt: string = sign(payload, process.env.JWT_SECRETE_TOKEN, {
