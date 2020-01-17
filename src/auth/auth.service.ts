@@ -57,4 +57,21 @@ export class AuthService {
       throw new InternalServerErrorException('validateOAuthLogin', err.message);
     }
   }
+
+  async verifyEmail(payload) {
+    return this.client
+      .send('verifyEmail', payload)
+      .toPromise()
+      .catch(error => {
+        throw new HttpException(error.message, error.status);
+      });
+  }
+  async verifyMemberId(payload) {
+    return this.client
+      .send('verifyMemberId', payload)
+      .toPromise()
+      .catch(error => {
+        throw new HttpException(error.message, error.status);
+      });
+  }
 }
