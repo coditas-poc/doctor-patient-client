@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res, Body, Param } from '@nestjs/common';
+import { Controller, Get, Req, Res, Body, Param, Post } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { DoctorDTO } from './doctors.dto';
 
@@ -18,10 +18,10 @@ export class DoctorsController {
     return this.doctorService.getDoctorsSpecialities();
   }
 
-  @Post('register')
-  getPayers(@Body() doctor: DoctorDTO) {
-    return this.doctorService.saveDoctor(doctor);
-  }
+  // @Get('register')
+  // getPayers(@Body() doctor: DoctorDTO) {
+  //   return this.doctorService.saveDoctor(doctor);
+  // }
 
   @Get('/:uid')
   getDoctorByUID(@Param('uid') uid: string): Promise<any> {

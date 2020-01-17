@@ -1,27 +1,39 @@
-import { Controller, Get, Post, Body, Req, Res, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Res, UseGuards, Param } from '@nestjs/common';
 import { EmergencyService } from './emergency.service';
 import { EmergencyMedicalDTO, EmergencyContactDTO } from './emergency.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('emergency')
+@UseGuards(AuthGuard('jwt'))
 export class EmergencyController {
     constructor(private readonly emergencyService: EmergencyService) { }
 
-    @Get('medical-details/:uid')
-    getMedicalDetails(@Param('uid') uid: string) {
-        return this.emergencyService.getMedicalDetails(uid);
+    @Get('medical-details/:id')
+    getMedicalDetails(
+        @Param() id: string,
+    ) {
+        return this.emergencyService.getMedicalDetails(id);
     }
 
-    @Post('medical-details/:uid')
-    addMedicalDetails(@Body() emergencyMedical: EmergencyMedicalDTO, @Param('uid') uid: string) {
-        return this.emergencyService.addMedicalDetails(emergencyMedical, uid);
+    @Post('medical-details/:id')
+    addMedicalDetails(
+        @Body() emergencyMedical: EmergencyMedicalDTO,
+        @Param() id: string,
+    ) {
+        return this.emergencyService.addMedicalDetails(emergencyMedical,id);
     }
-    @Get('contact-details/:uid')
-    getContactDetails(@Param('uid') uid: string) {
-        return this.emergencyService.getContactDetails(uid);
+    @Get('contact-details/:id')
+    getContactDetails(
+        @Param() id: string,
+    ) {
+        return this.emergencyService.getContactDetails(id);
     }
 
-    @Post('contact-details/:uid')
-    addContactDetails(@Body() emergencyContact: EmergencyContactDTO, @Param('uid') uid: string) {
-        return this.emergencyService.addContactDetails(emergencyContact, uid);
+    @Post('contact-details/:id')
+    addContactDetails(
+        @Body() emergencyContact: EmergencyContactDTO,
+        @Param() id: string,
+    ) {
+        return this.emergencyService.addContactDetails(emergencyContact,id);
     }
 }

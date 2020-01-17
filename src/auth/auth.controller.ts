@@ -11,6 +11,7 @@ export class AuthController {
     private readonly authService: AuthService,
     public readonly jwtService: JwtService,
   ) { }
+  
   @Get('google')
   @UseGuards(AuthGuard('google'))
   googleLogin() {
