@@ -1,4 +1,4 @@
-import { Controller, Get, Body } from '@nestjs/common';
+import { Controller, Get, Body, Post } from '@nestjs/common';
 import { PayersService } from './payers.service';
 
 @Controller('payers')
@@ -9,4 +9,10 @@ export class PayersController {
   getPayers(@Body() request): Promise < any > {
     return this.payersService.getAllPayers();
   }
+
+  @Post('addPayer')
+  addPayers(@Body() request): Promise<any> {
+    return this.payersService.addPayers(request);
+  }
+
 }

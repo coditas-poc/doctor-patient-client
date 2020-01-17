@@ -12,4 +12,10 @@ export class PayersService {
     this.logger.log('Fectching payers');
     return client.send('getAllPayers', '');
   }
+
+  async addPayers(payersData): Promise<any> {
+    this.logger.log('Adding payers');
+    return client.send('addPayers', payersData);
+  }
+  
 }

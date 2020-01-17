@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Res, Param } from '@nestjs/common';
 import { EmergencyService } from './emergency.service';
 import { EmergencyMedicalDTO, EmergencyContactDTO } from './emergency.dto';
 
@@ -6,22 +6,22 @@ import { EmergencyMedicalDTO, EmergencyContactDTO } from './emergency.dto';
 export class EmergencyController {
     constructor(private readonly emergencyService: EmergencyService) { }
 
-    @Get('medical-details')
-    getMedicalDetails() {
-        return this.emergencyService.getMedicalDetails();
+    @Get('medical-details/:uid')
+    getMedicalDetails(@Param('uid') uid: string) {
+        return this.emergencyService.getMedicalDetails(uid);
     }
 
-    @Post('medical-details')
-    addMedicalDetails(@Body() emergencyMedical: EmergencyMedicalDTO) {
-        return this.emergencyService.addMedicalDetails(emergencyMedical);
+    @Post('medical-details/:uid')
+    addMedicalDetails(@Body() emergencyMedical: EmergencyMedicalDTO, @Param('uid') uid: string) {
+        return this.emergencyService.addMedicalDetails(emergencyMedical, uid);
     }
-    @Get('contact-details')
-    getContactDetails() {
-        return this.emergencyService.getContactDetails();
+    @Get('contact-details/:uid')
+    getContactDetails(@Param('uid') uid: string) {
+        return this.emergencyService.getContactDetails(uid);
     }
 
-    @Post('contact-details')
-    addContactDetails(@Body() emergencyContact: EmergencyContactDTO) {
-        return this.emergencyService.addContactDetails(emergencyContact);
+    @Post('contact-details/:uid')
+    addContactDetails(@Body() emergencyContact: EmergencyContactDTO, @Param('uid') uid: string) {
+        return this.emergencyService.addContactDetails(emergencyContact, uid);
     }
 }
