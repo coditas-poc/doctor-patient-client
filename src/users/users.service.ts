@@ -1,29 +1,21 @@
-import { Injectable, Logger, HttpException } from '@nestjs/common';
-import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { client } from 'lib/client';
 
 @Injectable()
 export class UsersService {
     private logger = new Logger('UsersService');
-    private client: ClientProxy;
 
-    constructor() {
-        this.client = ClientProxyFactory.create({
-            transport: Transport.REDIS,
-            options: {
-                url: 'redis://localhost:6379',
-            },
-        });
-    }
+    constructor() { }
 
     public getPatients() {
         this.logger.log('Fetching patients');
-        return this.client.send('getPatients', '');
+        return client.send('getPatients', '');
 
     }
 
     async getUserDetails(id: string) {
         this.logger.log('Fectching User Details');
-        return this.client
+        return client
             .send('getUserDetails', id)
             .toPromise()
             .catch(error => {
@@ -32,7 +24,7 @@ export class UsersService {
     }
     async verifyUserOtp(details) {
         this.logger.log('Fectching patient Details');
-        return this.client.send('verifyOtp', details).toPromise().catch(error => {
+        return client.send('verifyOtp', details).toPromise().catch(error => {
             throw new HttpException(error, error.status);
         });
     }
