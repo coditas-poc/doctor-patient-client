@@ -6,11 +6,16 @@ import { DoctorDTO } from './doctors.dto';
 
 @Controller('doctors')
 export class DoctorsController {
-  constructor(private readonly doctorService: DoctorsService) {}
+  constructor(private readonly doctorService: DoctorsService) { }
 
   @Get()
   getDoctors(): Promise<any> {
     return this.doctorService.getDoctors();
+  }
+
+  @Get('specialities')
+  getDoctorsSpecialities(): Promise<any> {
+    return this.doctorService.getDoctorsSpecialities();
   }
 
   @Post('register')
@@ -27,12 +32,16 @@ export class DoctorsController {
   getDoctorByNPI(@Param('npi') npi: string): Promise<any> {
     return this.doctorService.getDoctorByNPI(npi);
   }
-
-  // Todo : Adding route for specilities
-  // Bug : UID being called instead of specialities
-  @Get('specialities')
-  getDoctorsSpecialities(): Promise<any> {
-    return this.doctorService.getDoctorsSpecialities();
+  @Post('/')
+  saveDoctorDetails(@Body() doctor: DoctorDTO) {
+    return this.doctorService.saveDoctor(doctor);
   }
-  
+  @Post('/register')
+  registerDoctor(@Body() doctor) {
+    return this.doctorService.registerDoctor(doctor)
+  }
+  @Post('/login')
+  updateDoctor(@Body() doctor) {
+    return this.doctorService.updateDoctor(doctor)
+  }
 }

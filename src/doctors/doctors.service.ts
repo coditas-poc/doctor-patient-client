@@ -6,12 +6,7 @@ import { client } from 'lib/client';
 export class DoctorsService {
   private logger = new Logger('DoctorsService');
 
-  constructor() {  }
-
-  async saveDoctor(doctor): Promise<any> {
-    this.logger.log('Fetching save doctors');
-    return client.send('saveDoctor', doctor);
-  }
+  constructor() { }
 
   async getDoctors(): Promise<any> {
     this.logger.log('Fetching doctors');
@@ -28,6 +23,18 @@ export class DoctorsService {
 
   async getDoctorsSpecialities(): Promise<any> {
     return client.send('getDoctorsSpecialities', '')
+  }
+  async saveDoctor(doctor): Promise<any> {
+    this.logger.log('save doctor details');
+    return client.send('saveDoctor', doctor);
+  }
+  async registerDoctor(doctor): Promise<any> {
+    this.logger.log('register doctor');
+    return client.send('registerDoctor', doctor);
+  }
+  async updateDoctor(doctor): Promise<any> {
+    this.logger.log('update doctor');
+    return client.send('updateDoctor', doctor);
   }
 
 }
